@@ -1,25 +1,35 @@
 import os
-import sys
+import json
 
-sql_command = '''
-create or replace procedure stproc1(FLOAT_PARAM1 FLOAT)
-    returns string
-    language javascript
-    strict
-    execute as owner
-    as
-    $$
-    var sql_command = 
-     "INSERT INTO stproc_test_table1 (num_col1) VALUES (" + FLOAT_PARAM1 + ")";
-    try {
-        snowflake.execute (
-            {sqlText: sql_command}
-            );
-        return "Succeeded.";   // Return a success/error indicator.
-        }
-    catch (err)  {
-        return "Failed: " + err;   // Return a success/error indicator.
-        }
-    $$
-    ;
-'''
+directory = '../Stored-Procedures'
+
+with open('config.json') as c:
+    config = json.load(c)
+
+tasks = []
+for task in config['tasks']:
+    tasks.append(task['taskName'])
+
+for filename in os.listdir(directory):
+
+    taskname = ".".join(filename.split(".")[:-1]) 
+
+    with open(directory+'/'+filename) as file:
+        sql_command = file.read()
+
+    if taskname in tasks:
+        for 
+        warehouse = config['tasks']
+
+    task_script = f'''
+    CREATE OR REPLACE TASK IF NOT EXISTS {taskname}
+    WAREHOUSE = 
+    SCHEDULE = '* * * * *'
+    COPY GRANTS
+    COMMENT = '<string_literal>'
+    AFTER <string>
+    AS
+    ''' + sql_command
+
+    #print(task_script)
+    

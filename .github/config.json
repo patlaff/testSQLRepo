@@ -1,0 +1,28 @@
+{
+    "tasks": [
+        {
+            "taskName": "task1",
+            "parameters": {
+                "warehouse": "LOAD_WH",
+                "schedule": "* * * * *",
+                "dependency": "task0"
+            }
+        },
+        {
+            "taskName": "task2",
+            "parameters": {
+                "warehouse": "LOAD_WH",
+                "schedule": "* * * * *",
+                "dependency": "task1"
+            }
+        },
+        {
+            "taskName": "myNewTask",
+            "parameters": {
+                "warehouse": "LOAD_WH",
+                "schedule": "* * * * *",
+                "dependency": ""
+            }
+        }
+    ]
+}
