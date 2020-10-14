@@ -1,27 +1,18 @@
 {
     "tasks": [
         {
-            "taskName": "task1",
+            "taskName": "sp_create_raw_pricesByProduct",
             "parameters": {
-                "warehouse": "LOAD_WH",
-                "schedule": "* * * * *",
-                "dependency": "task0"
+                "warehouse": "MY_SPECIAL_WH",
+                "schedule": "* * * * *"
             }
         },
         {
-            "taskName": "task2",
+            "taskName": "sp_create_refined_pricesByCurrency",
             "parameters": {
                 "warehouse": "LOAD_WH",
                 "schedule": "* * * * *",
                 "dependency": "task1"
-            }
-        },
-        {
-            "taskName": "myNewTask",
-            "parameters": {
-                "warehouse": "LOAD_WH",
-                "schedule": "* * * * *",
-                "dependency": ""
             }
         }
     ]

@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import snowflake.connector
 
@@ -24,34 +25,41 @@ for filename in os.listdir(directory):
         sql_command = file.read()
 
     if taskname in tasks:
-        for name, parameters in config.items():
-            if name==taskname:
-                if parameters['warehouse']:
-                    warehouse = parameters['warehouse']
-                    '''
-                    if ';' in warehouse:
-                        print('Invalid character (;) found in config file. Please revise.')
-                        sys.exit()
-                    '''
-                if parameters['schedule']:
-                    schedule = parameters['schedule']
-                if parameters['dependency']:
-                    dependency = parameters['dependency']
-        warehouse = config['tasks']
-        
+        parameters = [x for x in config['tasks'] if x['taskName']==taskname][0]['parameters']
+        try:
+            warehouse = parameters['warehouse']
+            if ';' in warehouse:
+                print(f'Invalid character (;) found in warehouse parameter for task, {taskname}. Please revise.')
+                sys.exit()
+        except KeyError:
+            pass
+        try:
+            schedule = parameters['schedule']
+            if ';' in schedule:
+                print(f'Invalid character (;) found in schedule parameter for task, {taskname}. Please revise.')
+                sys.exit()
+        except KeyError:
+            pass
+        try:
+            dependency = parameters['dependency']
+            if ';' in dependency:
+                print(f'Invalid character (;) found in dependency parameter for task, {taskname}. Please revise.')
+                sys.exit()
+        except KeyError:
+            pass
+
     task_script = f'''
     CREATE OR REPLACE TASK IF NOT EXISTS {taskname}
     COPY GRANTS
-    WAREHOUSE = '{warehouse}'
-    '''
-    if schedule: # or schedule <> '':
-        task_script += f"\nSCHEDULE = '{schedule}'"
-    if comment:
-        task_script += f"\nCOMMENT = '{comment}'"
-    if dependency:
-        task_script += f"\nAFTER {dependency}"
+    WAREHOUSE = '{warehouse}' '''
     
-    task_script += f'AS\n{sql_command}'
+    if dependency: task_script += f"\nAFTER {dependency}"
+    elif schedule: task_script += f"\nSCHEDULE = '{schedule}'"
+    if comment:    task_script += f"\nCOMMENT = '{comment}'"
+    
+    task_script += f'\nAS\n{sql_command}'
+
+    if task_script[-1] != ';': task_script += ';'
 
     print(task_script)
     
