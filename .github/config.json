@@ -3,16 +3,16 @@
         {
             "taskName": "sp_create_raw_pricesByProduct",
             "parameters": {
-                "warehouse": "MY_SPECIAL_WH",
-                "schedule": "0 5 1/1 * *"
+                "warehouse": "PHILADELPHIA_LOAD_WH",
+                "schedule": "0 5 * * *"
             }
         },
         {
             "taskName": "sp_create_refined_pricesByCurrency",
             "parameters": {
-                "warehouse": "LOAD_WH",
-                "schedule": "0 6 1/1 * *",
-                "dependency": "task1"
+                "warehouse": "PHILADELPHIA_LOAD_WH",
+                "schedule": "0 6 * * *",
+                "dependency": "sp_create_raw_pricesByProduct"
             }
         }
     ]
