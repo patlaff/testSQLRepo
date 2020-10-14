@@ -4,14 +4,14 @@
             "taskName": "sp_create_raw_pricesByProduct",
             "parameters": {
                 "warehouse": "MY_SPECIAL_WH",
-                "schedule": "* * * * *"
+                "schedule": "0 0 5 1/1 * ? *"
             }
         },
         {
             "taskName": "sp_create_refined_pricesByCurrency",
             "parameters": {
                 "warehouse": "LOAD_WH",
-                "schedule": "* * * * *",
+                "schedule": "0 0 6 1/1 * ? *",
                 "dependency": "task1"
             }
         }
