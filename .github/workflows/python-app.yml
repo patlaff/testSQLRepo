@@ -34,6 +34,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: execute deployment script
       run: |
-        .github/build_procs.py
+        python .github/build_procs.py
       #env:
       #  key:  
