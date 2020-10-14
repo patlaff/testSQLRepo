@@ -1,6 +1,6 @@
 {
     "tasks": [
-        {
+        { 
             "taskName": "sp_create_raw_pricesByProduct",
             "parameters": {
                 "warehouse": "PHILADELPHIA_LOAD_WH",

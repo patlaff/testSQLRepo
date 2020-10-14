@@ -1,5 +1,5 @@
 CREATE OR REPLACE TABLE REFINED."pricesByProduct" AS
-SELECT p."EnglishProductName", AVG(f."UnitPrice") as "UnitPriceSum", c."CurrencyAlternateKey"
+SELECT p."EnglishProductName", SUM(f."UnitPrice") as "UnitPriceSum", c."CurrencyAlternateKey"
 FROM dbo."FactInternetSales" f
 LEFT JOIN dbo."DimCurrency" c
     ON f."CurrencyKey" = c."CurrencyKey"
