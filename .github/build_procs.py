@@ -1,7 +1,10 @@
 import os
 import sys
 import json
+import logging
 import snowflake.connector
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 directory = os.path.dirname(__file__)+'/../Stored-Procedures'
@@ -29,21 +32,21 @@ for filename in os.listdir(directory):
         try:
             warehouse = parameters['warehouse']
             if ';' in warehouse:
-                print(f'Invalid character (;) found in warehouse parameter for task, {taskname}. Please revise.')
+                logging.info(f'Invalid character (;) found in warehouse parameter for task, {taskname}. Please revise.')
                 sys.exit()
         except KeyError:
             pass
         try:
             schedule = parameters['schedule']
             if ';' in schedule:
-                print(f'Invalid character (;) found in schedule parameter for task, {taskname}. Please revise.')
+                logging.info(f'Invalid character (;) found in schedule parameter for task, {taskname}. Please revise.')
                 sys.exit()
         except KeyError:
             pass
         try:
             dependency = parameters['dependency']
             if ';' in dependency:
-                print(f'Invalid character (;) found in dependency parameter for task, {taskname}. Please revise.')
+                logging.info(f'Invalid character (;) found in dependency parameter for task, {taskname}. Please revise.')
                 sys.exit()
         except KeyError:
             pass
@@ -61,5 +64,5 @@ for filename in os.listdir(directory):
 
     if task_script[-1] != ';': task_script += ';'
 
-    print(task_script)
+    logging.info(task_script)
     
