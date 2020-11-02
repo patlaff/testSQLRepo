@@ -1,4 +1,11 @@
 {
+    "env": {
+        "sf_account":"slalom_partner.east-us-2.azure",
+        "sf_user":"PATRICKLAFFERTY",
+        "sf_role":"PHILADELPHIA",
+        "sf_warehouse":"PHILADELPHIA_LOAD_WH",
+        "sf_database":"LAFFERTY_TEST"
+    },
     "tasks": [
         { 
             "taskName": "sp_create_raw_pricesByProduct",

@@ -45,13 +45,14 @@ if not password:
     usage()
 
 # Snowflake Account Information
+env_vars = config['env']
 snowflake.connector.paramstyle='qmark'
-SF_ACCOUNT = 'slalom_partner.east-us-2.azure'         # USE account.east-us-2.azure - full qualified account for client since it's on Azure
-SF_USER = 'PATRICKLAFFERTY'
+SF_ACCOUNT = env_vars['sf_account']        # USE account.east-us-2.azure - full qualified account for client since it's on Azure
+SF_USER = env_vars['sf_user'] 
 SF_PASSWORD = password
-SF_ROLE = 'PHILADELPHIA'
-SF_WAREHOUSE = 'PHILADELPHIA_LOAD_WH'
-SF_DATABASE = 'LAFFERTY_TEST'
+SF_ROLE = env_vars['sf_role'] 
+SF_WAREHOUSE = env_vars['sf_warehouse'] 
+SF_DATABASE = env_vars['sf_database'] 
 #SF_AUTHENTICATOR = 'https://vertexinc.okta.com/'
 
 # Connect to Snowflake using the default authenticator, and variables defined above
